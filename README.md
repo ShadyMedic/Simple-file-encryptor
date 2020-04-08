@@ -21,18 +21,18 @@ In case somebody will try to guess your password by typing names of your pets, c
 This is a big advantage, if you store passwords in your file, especially if they are random combinations of characters (as passwords should be). If somebody decrypts such file with a wrong password, he or she will have no method of proving they used the correct password, because they will get randomly-looking characters no matter what.
 
 ### What type of files can I protect using this?
-You can encrypt and decrypt any type of files, that is stored as plain text. That includes files with extension `.txt`, but also all source files (`.c`,`.cpp`,`.cs`,`.py`,`.html`,`.xml`,...) and some files containing formated text (such as `.md` markdown files).
+You can encrypt and decrypt any type of files, that is stored as plain text. That includes files with extension `.txt`, but also all source files (`.c`,`.cpp`,`.cs`,`.py`,`.html`,`.xml`,...) and some files containing formated text (such as `.md` markdown files or `.rtf` rich text format files).
 Binary files (pictures, videos, sounds, other applications,...) will usually get corrupted while encryption and lost, so I don't recommend using this application to protect them.
 
 ### What encryption do you use?
-The application uses Vigenère cipher to encrypt and decrypt the data. That means, that it uses your password to decrypt the data. It works like this. Imagine, you are encoding a file containing text `Undertale is a great game` with password `cutellamas`.
+The application uses an improved version of Vigenère cipher to encrypt and decrypt the data. That means, that it uses your password to decrypt the data. It works like this. Imagine, you are encoding a file containing text `Undertale is a great game` with password `cutellamas`.
 
 The password and data are written under each other, like this
 ```
 U n d e r t a l e   i s   a   g r e a t   g a m e
 c u t e l l a m a s c u t e l l a m a s c u t e l
 ```
-Now, the numeric codes for the characters are added together to form a cipher text. For example, code for 85 for `U` and 99 for `c`. If we add these numbers together, we get 184, which is code for `©`. Because of that, the first character is encrypted as `©`.
+Now, the numeric codes for the characters are added together to form a cipher text. For example, Unicode code is 85 for `U` and 99 for `c`. If we add these numbers together, we get 184, which is Unicode code for `¸`. Because of that, the first character is encrypted as `¸`.
 
 Decryption works the same, just backwards.
 

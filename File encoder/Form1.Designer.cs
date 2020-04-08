@@ -1,4 +1,4 @@
-﻿namespace File_encoder
+namespace File_encoder
 {
     partial class MainForm
     {
@@ -148,9 +148,9 @@
             this.progressCheckbox.AutoSize = true;
             this.progressCheckbox.Location = new System.Drawing.Point(16, 99);
             this.progressCheckbox.Name = "progressCheckbox";
-            this.progressCheckbox.Size = new System.Drawing.Size(333, 21);
+            this.progressCheckbox.Size = new System.Drawing.Size(340, 21);
             this.progressCheckbox.TabIndex = 12;
-            this.progressCheckbox.Text = "Display progress in a progress bar (slows down)";
+            this.progressCheckbox.Text = "Display progress in a progress bar (big files only)";
             this.progressCheckbox.UseVisualStyleBackColor = true;
             // 
             // label4
@@ -191,11 +191,12 @@
             this.Controls.Add(this.PasswordField);
             this.Controls.Add(this.BrowseButton);
             this.Controls.Add(this.FilepathField);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "MainForm";
-            this.Text = "File encrypter";
+            this.Text = "Simple File Encryptor";
             this.ResumeLayout(false);
             this.PerformLayout();
 

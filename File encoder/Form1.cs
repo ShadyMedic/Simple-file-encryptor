@@ -52,19 +52,27 @@ namespace File_encoder
                 return;
             }
 
+            //Disable input fields
+            FilepathField.Enabled = false;
+            BrowseButton.Enabled = false;
+            EncryptRadio.Enabled = false;
+            DecryptRadio.Enabled = false;
+            PasswordField.Enabled = false;
+            ConfirmButton.Enabled = false;
+
             ProgressBar.Value = 0;
             ProgressBar.Enabled = true;
 
+            string filename = FilepathField.Text;
+
             bool encrypting = (EncryptRadio.Checked == true) ? true : false;
 
-            char[] fileContent = File.ReadAllText(FilepathField.Text).ToCharArray();
+            char[] fileContent = File.ReadAllText(filename).ToCharArray();
             int fileLength = fileContent.Length;
             char[] processedContent = new char[fileLength];
 
             char[] password = PasswordField.Text.ToCharArray();
             int passwordLength = password.Length;
-
-            ProgressBar.Maximum = fileLength;
 
             for (int i = 0; i < fileLength; i++)
             {
@@ -81,13 +89,24 @@ namespace File_encoder
                 }
 
                 processedContent[i] = ch;
-                if (progressCheckbox.Checked){ ProgressBar.Value = i; }
+
+                //Update progress bar
+                if (progressCheckbox.Checked && i % (fileLength / 100) == 0){ ProgressBar.Value = i / (fileLength/100); }
             }
 
-            File.WriteAllText(FilepathField.Text, new string(processedContent));
+            File.WriteAllText(filename, new string(processedContent));
 
             ProgressBar.Value = 0;
             ProgressBar.Enabled = false;
+
+            //Reenable input fields
+            FilepathField.Enabled = true;
+            BrowseButton.Enabled = true;
+            EncryptRadio.Enabled = true;
+            DecryptRadio.Enabled = true;
+            PasswordField.Enabled = true;
+            ConfirmButton.Enabled = true;
+
             if (encrypting) { MessageBox.Show("File encrypted successfully.", "", MessageBoxButtons.OK, MessageBoxIcon.Information); }
             else { MessageBox.Show("File decrypted successfully.", "", MessageBoxButtons.OK, MessageBoxIcon.Information); }
         }
