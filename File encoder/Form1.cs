@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.ComponentModel;
 using System.IO;
 using System.Windows.Forms;
@@ -11,7 +11,7 @@ namespace File_encoder
         {
             InitializeComponent();
         }
-
+        
         /**
          * Method called after clicking the button for choosing a file to encrypt / decrypt
          */
@@ -28,6 +28,29 @@ namespace File_encoder
             FilepathField.Text = openFileDialog.FileName;
         }
 
+        /**
+         * Method called after clicking the eye button for displaying or hiding the password
+         */
+        private void TogglePasswordButton_Click(object sender, EventArgs e)
+        {
+            char passwordChar = PasswordField.PasswordChar;
+            if (passwordChar == '•')
+            {
+                //Revealing password
+                PasswordField.PasswordChar = '\0';
+                TogglePasswordButton.Text = "🕶";
+            }
+            else
+            {
+                //Hiding password
+                PasswordField.PasswordChar = '•';
+                TogglePasswordButton.Text = "👓";
+            }
+        }
+
+        /**
+         * Method called after clicking the confirm button
+         */
         private void ConfirmButton_Click(object sender, EventArgs e)
         {
             if (!File.Exists(FilepathField.Text))

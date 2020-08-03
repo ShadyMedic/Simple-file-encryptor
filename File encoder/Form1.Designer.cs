@@ -43,6 +43,7 @@ namespace File_encoder
             this.progressCheckbox = new System.Windows.Forms.CheckBox();
             this.label4 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
+            this.TogglePasswordButton = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // openFileDialog
@@ -57,29 +58,30 @@ namespace File_encoder
             // 
             this.FilepathField.Location = new System.Drawing.Point(94, 12);
             this.FilepathField.Name = "FilepathField";
-            this.FilepathField.Size = new System.Drawing.Size(202, 22);
+            this.FilepathField.Size = new System.Drawing.Size(242, 22);
             this.FilepathField.TabIndex = 0;
             // 
             // BrowseButton
             // 
-            this.BrowseButton.Location = new System.Drawing.Point(302, 12);
+            this.BrowseButton.Location = new System.Drawing.Point(342, 12);
             this.BrowseButton.Name = "BrowseButton";
             this.BrowseButton.Size = new System.Drawing.Size(75, 23);
             this.BrowseButton.TabIndex = 1;
             this.BrowseButton.Text = "Browse";
             this.BrowseButton.UseVisualStyleBackColor = true;
-            this.BrowseButton.Click += new System.EventHandler(this.Button1_Click);
+            this.BrowseButton.Click += new System.EventHandler(this.BrowseButton_Click);
             // 
             // PasswordField
             // 
             this.PasswordField.Location = new System.Drawing.Point(94, 71);
             this.PasswordField.Name = "PasswordField";
-            this.PasswordField.Size = new System.Drawing.Size(202, 22);
+            this.PasswordField.PasswordChar = '•';
+            this.PasswordField.Size = new System.Drawing.Size(213, 22);
             this.PasswordField.TabIndex = 4;
             // 
             // ConfirmButton
             // 
-            this.ConfirmButton.Location = new System.Drawing.Point(302, 70);
+            this.ConfirmButton.Location = new System.Drawing.Point(342, 71);
             this.ConfirmButton.Name = "ConfirmButton";
             this.ConfirmButton.Size = new System.Drawing.Size(75, 23);
             this.ConfirmButton.TabIndex = 5;
@@ -140,7 +142,7 @@ namespace File_encoder
             this.ProgressBar.Location = new System.Drawing.Point(16, 126);
             this.ProgressBar.MarqueeAnimationSpeed = 0;
             this.ProgressBar.Name = "ProgressBar";
-            this.ProgressBar.Size = new System.Drawing.Size(369, 23);
+            this.ProgressBar.Size = new System.Drawing.Size(401, 23);
             this.ProgressBar.TabIndex = 11;
             // 
             // progressCheckbox
@@ -159,25 +161,36 @@ namespace File_encoder
             this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.label4.Location = new System.Drawing.Point(13, 152);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(260, 34);
+            this.label4.Size = new System.Drawing.Size(247, 34);
             this.label4.TabIndex = 13;
-            this.label4.Text = "Created by Jan Štěch on 6th April 2020.\r\n\r\n";
+            this.label4.Text = "Created by Jan Štěch in August 2020.\r\n\r\n";
             // 
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(13, 169);
+            this.label6.Location = new System.Drawing.Point(12, 169);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(337, 17);
+            this.label6.Size = new System.Drawing.Size(405, 17);
             this.label6.TabIndex = 15;
-            this.label6.Text = "See LICENSE file for information about terms of use.";
+            this.label6.Text = "Application created for www.ict.social summer competition 2020";
+            // 
+            // TogglePasswordButton
+            // 
+            this.TogglePasswordButton.Location = new System.Drawing.Point(313, 71);
+            this.TogglePasswordButton.Name = "TogglePasswordButton";
+            this.TogglePasswordButton.Size = new System.Drawing.Size(23, 23);
+            this.TogglePasswordButton.TabIndex = 16;
+            this.TogglePasswordButton.Text = "👓";
+            this.TogglePasswordButton.UseVisualStyleBackColor = true;
+            this.TogglePasswordButton.Click += new System.EventHandler(this.TogglePasswordButton_Click);
             // 
             // MainForm
             // 
             this.AcceptButton = this.ConfirmButton;
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(394, 194);
+            this.ClientSize = new System.Drawing.Size(426, 194);
+            this.Controls.Add(this.TogglePasswordButton);
             this.Controls.Add(this.label6);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.progressCheckbox);
@@ -218,6 +231,7 @@ namespace File_encoder
         private System.Windows.Forms.CheckBox progressCheckbox;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.Button TogglePasswordButton;
     }
 }
 
