@@ -12,11 +12,17 @@ namespace File_encoder
             InitializeComponent();
         }
 
-        private void Button1_Click(object sender, EventArgs e)
+        /**
+         * Method called after clicking the button for choosing a file to encrypt / decrypt
+         */
+        private void BrowseButton_Click(object sender, EventArgs e)
         {
             openFileDialog.ShowDialog();
         }
 
+        /**
+         * Method called after selecting a valid file to encrypt / decrypt from the open file dialog
+         */
         private void OpenFileDialog_FileOk(object sender, CancelEventArgs e)
         {
             FilepathField.Text = openFileDialog.FileName;
