@@ -53,6 +53,7 @@ namespace File_encoder
          */
         private void ConfirmButton_Click(object sender, EventArgs e)
         {
+            //Check if all fields are properly filled
             if (!File.Exists(FilepathField.Text))
             {
                 MessageBox.Show("File not found", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -83,42 +84,20 @@ namespace File_encoder
             PasswordField.Enabled = false;
             ConfirmButton.Enabled = false;
 
+            //Reset progress bar
             ProgressBar.Value = 0;
             ProgressBar.Enabled = true;
 
-            string filename = FilepathField.Text;
-
+            string filePath = FilepathField.Text;
+            string password = PasswordField.Text;
             bool encrypting = (EncryptRadio.Checked == true) ? true : false;
+            bool updateProgressBar = (progressCheckbox.Checked == true) ? true : false;
 
-            char[] fileContent = File.ReadAllText(filename).ToCharArray();
-            int fileLength = fileContent.Length;
-            char[] processedContent = new char[fileLength];
+            Encryptor encryptor = new Encryptor(new FileStream(filePath, FileMode.Open));
+            if (encrypting) { encryptor.Encrypt(password, updateProgressBar, ProgressBar); }
+            else { encryptor.Decrypt(password, updateProgressBar, ProgressBar); }
 
-            char[] password = PasswordField.Text.ToCharArray();
-            int passwordLength = password.Length;
-
-            for (int i = 0; i < fileLength; i++)
-            {
-                char ch = fileContent[i];
-                char passCh = password[i % passwordLength];
-
-                if (encrypting)
-                {
-                    ch = (char)(Convert.ToInt32(ch) + Convert.ToInt32(passCh));
-                }
-                else
-                {
-                    ch = (char)(Convert.ToInt32(ch) - Convert.ToInt32(passCh));
-                }
-
-                processedContent[i] = ch;
-
-                //Update progress bar
-                if (progressCheckbox.Checked && i % (fileLength / 100) == 0){ ProgressBar.Value = i / (fileLength/100); }
-            }
-
-            File.WriteAllText(filename, new string(processedContent));
-
+            //Reset progress bar
             ProgressBar.Value = 0;
             ProgressBar.Enabled = false;
 
