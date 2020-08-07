@@ -54,7 +54,7 @@ namespace File_encoder
                 else
                 {
                     //Ask the user to select a different file
-                    openFileDialog.ShowDialog();
+                    e.Cancel = true;
                     return;
                 }
             }
@@ -73,7 +73,7 @@ namespace File_encoder
                 else
                 {
                     //Ask the user to select a different file
-                    openFileDialog.ShowDialog();
+                    e.Cancel = true;
                     return;
                 }
             }
