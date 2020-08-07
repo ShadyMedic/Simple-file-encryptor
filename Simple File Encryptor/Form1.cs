@@ -39,7 +39,7 @@ namespace File_encoder
         private void OpenFileDialog_FileOk(object sender, CancelEventArgs e)
         {
             string selectedFilePath = openFileDialog.FileName;
-            DebugLogger.log(selectedFilePath);
+            
             //Check if the file isn't already encrypted, if the action selected is encrypting
             if (selectedFilePath.EndsWith(".ecp") && EncryptRadio.Checked)
             {
