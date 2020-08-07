@@ -11,7 +11,20 @@ namespace File_encoder
         {
             InitializeComponent();
         }
-        
+
+        /**
+         * Method called after selecting an action to perform on a file
+         */
+        private void ActionRadio_CheckedChanged(object sender, EventArgs e)
+        {
+            BrowseButton.Enabled = true;
+
+            openFileDialog.Filter = (EncryptRadio.Checked == true) ? "Unencrypted files|*" : "Encrypted files|*.ecp";
+            FilepathField.Text = "";
+
+            this.CheckConfirmRequirements();
+        }
+
         /**
          * Method called after clicking the button for choosing a file to encrypt / decrypt
          */
@@ -21,11 +34,59 @@ namespace File_encoder
         }
 
         /**
-         * Method called after selecting a valid file to encrypt / decrypt from the open file dialog
+         * Method called after selecting a file to encrypt / decrypt from the open file dialog
          */
         private void OpenFileDialog_FileOk(object sender, CancelEventArgs e)
         {
-            FilepathField.Text = openFileDialog.FileName;
+            string selectedFilePath = openFileDialog.FileName;
+            DebugLogger.log(selectedFilePath);
+            //Check if the file isn't already encrypted, if the action selected is encrypting
+            if (selectedFilePath.EndsWith(".ecp") && EncryptRadio.Checked)
+            {
+                DialogResult decryptInstead = MessageBox.Show("It looks like this file is already encrypted. Would you like to decrypt it?", "File already encrypted", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+                if (decryptInstead == DialogResult.Yes)
+                {
+                    //Set action to decrypting and allow the selected file
+                    EncryptRadio.Checked = false;
+                    DecryptRadio.Checked = true;
+                    openFileDialog.Filter = "Encrypted files|*.ecp";
+                }
+                else
+                {
+                    //Ask the user to select a different file
+                    openFileDialog.ShowDialog();
+                    return;
+                }
+            }
+
+            //Check if the file is encrypted, if the action selected is decrypting
+            if (!selectedFilePath.EndsWith(".ecp") && DecryptRadio.Checked)
+            {
+                DialogResult encryptInstead = MessageBox.Show("It looks like this file isn\'t encrypted or wasn\'t encrypted by Simple File Encryptor.\nFiles encrypted by Simple File Encryptor have the \".ecp\" extension.\nWould you like encrypt it?", "File not encrypted", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+                if (encryptInstead == DialogResult.Yes)
+                {
+                    //Set action to encrypting and allow the selected file
+                    DecryptRadio.Checked = false;
+                    EncryptRadio.Checked = true;
+                    openFileDialog.Filter = "Unencrypted files|*";
+                }
+                else
+                {
+                    //Ask the user to select a different file
+                    openFileDialog.ShowDialog();
+                    return;
+                }
+            }
+            FilepathField.Text = selectedFilePath;
+            this.CheckConfirmRequirements();
+        }
+
+        /**
+         * Method called after writing anything in the password field
+         */
+        private void PasswordField_TextChanged(object sender, EventArgs e)
+        {
+            this.CheckConfirmRequirements();
         }
 
         /**
@@ -45,6 +106,21 @@ namespace File_encoder
                 //Hiding password
                 PasswordField.PasswordChar = '•';
                 TogglePasswordButton.Text = "👓";
+            }
+        }
+
+        /**
+         * Method called after typing anything in the password field or selecting a file
+         */
+        private void CheckConfirmRequirements()
+        {
+            if (FilepathField.TextLength > 0 && PasswordField.TextLength > 0)
+            {
+                ConfirmButton.Enabled = true;
+            }
+            else
+            {
+                ConfirmButton.Enabled = false;
             }
         }
 
@@ -93,7 +169,7 @@ namespace File_encoder
             bool encrypting = (EncryptRadio.Checked == true) ? true : false;
             bool updateProgressBar = (progressCheckbox.Checked == true) ? true : false;
 
-            Encryptor encryptor = new Encryptor(new FileStream(filePath, FileMode.Open));
+            Encryptor encryptor = new Encryptor(filePath);
             if (encrypting) { encryptor.Encrypt(password, updateProgressBar, ProgressBar); }
             else { encryptor.Decrypt(password, updateProgressBar, ProgressBar); }
 

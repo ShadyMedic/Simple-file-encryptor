@@ -4,8 +4,8 @@ Binary Reader/*
 Binary Writer/*
 tests/*
 
-File encoder/bin/*
-File encoder/obj/*
+Simple File Encryptor/bin/*
+Simple File Encryptor/obj/*
 
 *.lnk
 
