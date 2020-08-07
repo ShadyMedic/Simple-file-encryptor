@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.IO;
 using System.Text;
 using System.Windows.Forms;
@@ -71,6 +71,7 @@ namespace File_encoder
                     byte b = bReader.ReadByte();
                     if (encrypt) { b += bytePassword[i % passwordLength]; }
                     else         { b -= bytePassword[i % passwordLength]; }
+                    fStream.Position--;
                     bWriter.Write(b);
                 }
             }
