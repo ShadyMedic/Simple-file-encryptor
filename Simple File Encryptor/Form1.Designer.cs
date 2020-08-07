@@ -50,7 +50,7 @@ namespace File_encoder
             // 
             this.openFileDialog.CheckFileExists = false;
             this.openFileDialog.Filter = "All files|*.*";
-            this.openFileDialog.InitialDirectory = "C:";
+            this.openFileDialog.RestoreDirectory = true;
             this.openFileDialog.Title = "Choose the file to encrypt or decrypt";
             this.openFileDialog.FileOk += new System.ComponentModel.CancelEventHandler(this.OpenFileDialog_FileOk);
             // 
