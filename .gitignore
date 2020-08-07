@@ -1,7 +1,15 @@
 .vs/*
+
+Binary Reader/*
+Binary Writer/*
+tests/*
+
+File encoder/bin/*
+File encoder/obj/*
+
+*.lnk
+
 appIcon.pdn
 appIcon.png
 appIcon140.png
-tests/*
-File encoder/bin/*
-File encoder/obj/*
+debug.log
