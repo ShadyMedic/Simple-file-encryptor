@@ -2,6 +2,7 @@
 
 Binary Reader/*
 Binary Writer/*
+Byte Comparator/*
 tests/*
 
 Simple File Encryptor/bin/*
