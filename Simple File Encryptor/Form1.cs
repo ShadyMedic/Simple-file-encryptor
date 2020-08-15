@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.ComponentModel;
 using System.IO;
 using System.Windows.Forms;
@@ -146,14 +146,13 @@ namespace File_encoder
                 return;
             }
 
-            DialogResult confirmation = MessageBox.Show("Are you sure you want to execute this operation?\nThere will be no way to recover the file into its initial state without the password you entered!\nIf you choose to decrypt unencrypted file or encrypt an encrypted file, you will have problems recovering them!\n\nIMPORTANT! This works only on files stored as raw text (usually .txt and source files - .html, .css, .js, .php,...). Other file types will be corrupted and lost.", "Confirmation", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+            DialogResult confirmation = MessageBox.Show("Are you sure you want to execute this operation?\nThere will be no way to recover the file into its initial state without the password you entered!\nIf you choose to decrypt unencrypted file or encrypt an encrypted file, you will have problems recovering them!", "Confirmation", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
             if (confirmation != DialogResult.Yes)
             {
                 return;
             }
 
             //Disable input fields
-            FilepathField.Enabled = false;
             BrowseButton.Enabled = false;
             EncryptRadio.Enabled = false;
             DecryptRadio.Enabled = false;
@@ -178,7 +177,6 @@ namespace File_encoder
             ProgressBar.Enabled = false;
 
             //Reenable input fields
-            FilepathField.Enabled = true;
             BrowseButton.Enabled = true;
             EncryptRadio.Enabled = true;
             DecryptRadio.Enabled = true;
