@@ -28,6 +28,7 @@ namespace File_encoder
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.openFileDialog = new System.Windows.Forms.OpenFileDialog();
             this.FilepathField = new System.Windows.Forms.TextBox();
@@ -44,6 +45,12 @@ namespace File_encoder
             this.label4 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
             this.TogglePasswordButton = new System.Windows.Forms.Button();
+            this.label5 = new System.Windows.Forms.Label();
+            this.performanceSlider = new System.Windows.Forms.TrackBar();
+            this.label7 = new System.Windows.Forms.Label();
+            this.label8 = new System.Windows.Forms.Label();
+            this.performanceWarning = new System.Windows.Forms.ToolTip(this.components);
+            ((System.ComponentModel.ISupportInitialize)(this.performanceSlider)).BeginInit();
             this.SuspendLayout();
             // 
             // openFileDialog
@@ -57,10 +64,10 @@ namespace File_encoder
             // FilepathField
             // 
             this.FilepathField.Enabled = false;
-            this.FilepathField.Location = new System.Drawing.Point(93, 33);
+            this.FilepathField.Location = new System.Drawing.Point(107, 33);
             this.FilepathField.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.FilepathField.Name = "FilepathField";
-            this.FilepathField.Size = new System.Drawing.Size(241, 22);
+            this.FilepathField.Size = new System.Drawing.Size(227, 22);
             this.FilepathField.TabIndex = 0;
             // 
             // BrowseButton
@@ -77,11 +84,11 @@ namespace File_encoder
             // 
             // PasswordField
             // 
-            this.PasswordField.Location = new System.Drawing.Point(93, 62);
+            this.PasswordField.Location = new System.Drawing.Point(107, 62);
             this.PasswordField.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.PasswordField.Name = "PasswordField";
             this.PasswordField.PasswordChar = '•';
-            this.PasswordField.Size = new System.Drawing.Size(241, 22);
+            this.PasswordField.Size = new System.Drawing.Size(227, 22);
             this.PasswordField.TabIndex = 4;
             this.PasswordField.TextChanged += new System.EventHandler(this.PasswordField_TextChanged);
             // 
@@ -89,7 +96,7 @@ namespace File_encoder
             // 
             this.ConfirmButton.Enabled = false;
             this.ConfirmButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.ConfirmButton.Location = new System.Drawing.Point(16, 145);
+            this.ConfirmButton.Location = new System.Drawing.Point(16, 205);
             this.ConfirmButton.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.ConfirmButton.Name = "ConfirmButton";
             this.ConfirmButton.Size = new System.Drawing.Size(401, 52);
@@ -110,7 +117,7 @@ namespace File_encoder
             // EncryptRadio
             // 
             this.EncryptRadio.AutoSize = true;
-            this.EncryptRadio.Location = new System.Drawing.Point(93, 7);
+            this.EncryptRadio.Location = new System.Drawing.Point(107, 8);
             this.EncryptRadio.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.EncryptRadio.Name = "EncryptRadio";
             this.EncryptRadio.Size = new System.Drawing.Size(77, 21);
@@ -122,7 +129,7 @@ namespace File_encoder
             // DecryptRadio
             // 
             this.DecryptRadio.AutoSize = true;
-            this.DecryptRadio.Location = new System.Drawing.Point(259, 7);
+            this.DecryptRadio.Location = new System.Drawing.Point(256, 7);
             this.DecryptRadio.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.DecryptRadio.Name = "DecryptRadio";
             this.DecryptRadio.Size = new System.Drawing.Size(78, 21);
@@ -152,7 +159,7 @@ namespace File_encoder
             // ProgressBar
             // 
             this.ProgressBar.Cursor = System.Windows.Forms.Cursors.Arrow;
-            this.ProgressBar.Location = new System.Drawing.Point(16, 117);
+            this.ProgressBar.Location = new System.Drawing.Point(16, 177);
             this.ProgressBar.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.ProgressBar.MarqueeAnimationSpeed = 0;
             this.ProgressBar.Name = "ProgressBar";
@@ -162,7 +169,7 @@ namespace File_encoder
             // progressCheckbox
             // 
             this.progressCheckbox.AutoSize = true;
-            this.progressCheckbox.Location = new System.Drawing.Point(16, 90);
+            this.progressCheckbox.Location = new System.Drawing.Point(16, 150);
             this.progressCheckbox.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.progressCheckbox.Name = "progressCheckbox";
             this.progressCheckbox.Size = new System.Drawing.Size(340, 21);
@@ -174,7 +181,7 @@ namespace File_encoder
             // 
             this.label4.AutoSize = true;
             this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.label4.Location = new System.Drawing.Point(13, 201);
+            this.label4.Location = new System.Drawing.Point(13, 261);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(247, 34);
             this.label4.TabIndex = 13;
@@ -183,7 +190,7 @@ namespace File_encoder
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(12, 218);
+            this.label6.Location = new System.Drawing.Point(12, 278);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(405, 17);
             this.label6.TabIndex = 15;
@@ -200,12 +207,64 @@ namespace File_encoder
             this.TogglePasswordButton.UseVisualStyleBackColor = true;
             this.TogglePasswordButton.Click += new System.EventHandler(this.TogglePasswordButton_Click);
             // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(13, 93);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(89, 17);
+            this.label5.TabIndex = 17;
+            this.label5.Text = "Performance";
+            // 
+            // performanceSlider
+            // 
+            this.performanceSlider.Location = new System.Drawing.Point(108, 89);
+            this.performanceSlider.Maximum = 500000;
+            this.performanceSlider.Minimum = 1;
+            this.performanceSlider.Name = "performanceSlider";
+            this.performanceSlider.Size = new System.Drawing.Size(226, 56);
+            this.performanceSlider.TabIndex = 18;
+            this.performanceSlider.TickFrequency = 50000;
+            this.performanceWarning.SetToolTip(this.performanceSlider, "Higher speed might slightly slow down your device, since more RAM will be used fo" +
+        "r encryption or decryption.");
+            this.performanceSlider.Value = 100000;
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(105, 128);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(37, 17);
+            this.label7.TabIndex = 19;
+            this.label7.Text = "Slow";
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Location = new System.Drawing.Point(299, 128);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(35, 17);
+            this.label8.TabIndex = 20;
+            this.label8.Text = "Fast";
+            // 
+            // performanceWarning
+            // 
+            this.performanceWarning.AutomaticDelay = 50;
+            this.performanceWarning.AutoPopDelay = 0;
+            this.performanceWarning.InitialDelay = 50;
+            this.performanceWarning.ReshowDelay = 10;
+            this.performanceWarning.ToolTipIcon = System.Windows.Forms.ToolTipIcon.Warning;
+            // 
             // MainForm
             // 
             this.AcceptButton = this.ConfirmButton;
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(427, 238);
+            this.ClientSize = new System.Drawing.Size(427, 306);
+            this.Controls.Add(this.label8);
+            this.Controls.Add(this.label7);
+            this.Controls.Add(this.performanceSlider);
+            this.Controls.Add(this.label5);
             this.Controls.Add(this.TogglePasswordButton);
             this.Controls.Add(this.label6);
             this.Controls.Add(this.label4);
@@ -227,6 +286,7 @@ namespace File_encoder
             this.MinimizeBox = false;
             this.Name = "MainForm";
             this.Text = "Simple File Encryptor";
+            ((System.ComponentModel.ISupportInitialize)(this.performanceSlider)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -249,6 +309,11 @@ namespace File_encoder
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Button TogglePasswordButton;
+        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.TrackBar performanceSlider;
+        private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.ToolTip performanceWarning;
     }
 }
 

@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.ComponentModel;
 using System.IO;
 using System.Windows.Forms;
@@ -170,8 +170,8 @@ namespace File_encoder
             bool updateProgressBar = (progressCheckbox.Checked == true) ? true : false;
 
             Encryptor encryptor = new Encryptor(filePath);
-            if (encrypting) { encryptor.Encrypt(password, updateProgressBar, ProgressBar); }
-            else { encryptor.Decrypt(password, updateProgressBar, ProgressBar); }
+            if (encrypting) { encryptor.Encrypt(password, performanceSlider, updateProgressBar, ProgressBar); }
+            else { encryptor.Decrypt(password, performanceSlider, updateProgressBar, ProgressBar); }
 
             //Reset progress bar
             ProgressBar.Value = 0;

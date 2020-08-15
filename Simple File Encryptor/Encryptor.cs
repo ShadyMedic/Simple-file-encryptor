@@ -14,23 +14,23 @@ namespace File_encoder
             this.filePath = filePath;
         }
 
-        public void Encrypt(string password, bool updateProgressBar, ProgressBar progressBar)
+        public void Encrypt(string password, TrackBar performanceSlider, bool updateProgressBar, ProgressBar progressBar)
         {
             password = this.EncryptPassword(password);
             byte[] bytePassword = Encoding.UTF8.GetBytes(password);
 
-            this.CryptFile(true, new FileStream(this.filePath, FileMode.Open, FileAccess.ReadWrite, FileShare.ReadWrite), bytePassword, updateProgressBar, progressBar);
+            this.CryptFile(true, new FileStream(this.filePath, FileMode.Open, FileAccess.ReadWrite, FileShare.ReadWrite), bytePassword, performanceSlider, updateProgressBar, progressBar);
 
             //Append the .ecp extension to the encrypted file
             File.Move(this.filePath, this.filePath + ".ecp");
         }
 
-        public void Decrypt(string password, bool updateProgressBar, ProgressBar progressBar)
+        public void Decrypt(string password, TrackBar performanceSlider, bool updateProgressBar, ProgressBar progressBar)
         {
             password = this.EncryptPassword(password);
             byte[] bytePassword = Encoding.UTF8.GetBytes(password);
 
-            this.CryptFile(false, new FileStream(this.filePath, FileMode.Open, FileAccess.ReadWrite, FileShare.ReadWrite), bytePassword, updateProgressBar, progressBar);
+            this.CryptFile(false, new FileStream(this.filePath, FileMode.Open, FileAccess.ReadWrite, FileShare.ReadWrite), bytePassword, performanceSlider, updateProgressBar, progressBar);
 
             //Remove the .exp extension from the encrypted file
             File.Move(this.filePath, this.filePath.Substring(0, filePath.LastIndexOf(".ecp")));
@@ -47,11 +47,8 @@ namespace File_encoder
 
             return "";
         }
-        private void CryptFile(bool encrypt, FileStream fStream, byte[] bytePassword, bool updateProgressBar, ProgressBar progressBar)
+        private void CryptFile(bool encrypt, FileStream fStream, byte[] bytePassword, TrackBar performanceSlider, bool updateProgressBar, ProgressBar progressBar)
         {
-            StreamReader reader = new StreamReader(fStream);
-            StreamWriter writer = new StreamWriter(fStream);
-
             BinaryReader bReader = new BinaryReader(fStream);
             BinaryWriter bWriter = new BinaryWriter(fStream);
 
@@ -59,28 +56,37 @@ namespace File_encoder
             long fileByteLength = fStream.Length;
             long onePercentByteCount = Convert.ToInt32(Math.Round(Convert.ToDouble(fileByteLength / 100)));
 
-            try
+            for (long i = 0; fStream.Position < fStream.Length;)
             {
-                for (int i = 0; true; i++)
+                int byteCountToRead = performanceSlider.Value;
+                byte[] bs = bReader.ReadBytes(byteCountToRead);
+                int loadedBytes = bs.Length;
+                if (encrypt)
                 {
-                    byte b = bReader.ReadByte();
-                    if (encrypt) { b += bytePassword[i % passwordLength]; }
-                    else         { b -= bytePassword[i % passwordLength]; }
-                    fStream.Position--;
-                    bWriter.Write(b);
-
-                    if (updateProgressBar && i % onePercentByteCount == 0)
+                    for (int j = 0; j < loadedBytes; j++)
                     {
-                        progressBar.Value = (progressBar.Value + 1) % 100;
+                        bs[j] += bytePassword[i % passwordLength];
+                        i++;
                     }
                 }
+                else
+                {
+                    for (int j = 0; j < loadedBytes; j++)
+                    {
+                        bs[j] -= bytePassword[i % passwordLength];
+                        i++;
+                    }
+                }
+                fStream.Position -= loadedBytes;
+                bWriter.Write(bs);
+
+                if (updateProgressBar && fStream.Position / onePercentByteCount > progressBar.Value)
+                {
+                    progressBar.Value = (progressBar.Value + 1) % 100;
+                }
             }
-            catch (EndOfStreamException)
-            {
-                /*End of file was reached - exit the for loop*/
-                bWriter.Flush();
-                bWriter.Close();
-            }
+            bWriter.Flush();
+            bWriter.Close();
         }
     }
 }
