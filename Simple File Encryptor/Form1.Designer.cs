@@ -41,7 +41,6 @@ namespace File_encoder
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.ProgressBar = new System.Windows.Forms.ProgressBar();
-            this.progressCheckbox = new System.Windows.Forms.CheckBox();
             this.label4 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
             this.TogglePasswordButton = new System.Windows.Forms.Button();
@@ -96,10 +95,10 @@ namespace File_encoder
             // 
             this.ConfirmButton.Enabled = false;
             this.ConfirmButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.ConfirmButton.Location = new System.Drawing.Point(16, 205);
+            this.ConfirmButton.Location = new System.Drawing.Point(16, 150);
             this.ConfirmButton.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.ConfirmButton.Name = "ConfirmButton";
-            this.ConfirmButton.Size = new System.Drawing.Size(401, 52);
+            this.ConfirmButton.Size = new System.Drawing.Size(400, 52);
             this.ConfirmButton.TabIndex = 5;
             this.ConfirmButton.Text = "Confirm";
             this.ConfirmButton.UseVisualStyleBackColor = true;
@@ -159,29 +158,18 @@ namespace File_encoder
             // ProgressBar
             // 
             this.ProgressBar.Cursor = System.Windows.Forms.Cursors.Arrow;
-            this.ProgressBar.Location = new System.Drawing.Point(16, 177);
+            this.ProgressBar.Location = new System.Drawing.Point(16, 206);
             this.ProgressBar.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.ProgressBar.MarqueeAnimationSpeed = 0;
             this.ProgressBar.Name = "ProgressBar";
-            this.ProgressBar.Size = new System.Drawing.Size(401, 23);
+            this.ProgressBar.Size = new System.Drawing.Size(399, 23);
             this.ProgressBar.TabIndex = 11;
-            // 
-            // progressCheckbox
-            // 
-            this.progressCheckbox.AutoSize = true;
-            this.progressCheckbox.Location = new System.Drawing.Point(16, 150);
-            this.progressCheckbox.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.progressCheckbox.Name = "progressCheckbox";
-            this.progressCheckbox.Size = new System.Drawing.Size(340, 21);
-            this.progressCheckbox.TabIndex = 12;
-            this.progressCheckbox.Text = "Display progress in a progress bar (big files only)";
-            this.progressCheckbox.UseVisualStyleBackColor = true;
             // 
             // label4
             // 
             this.label4.AutoSize = true;
             this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.label4.Location = new System.Drawing.Point(13, 261);
+            this.label4.Location = new System.Drawing.Point(13, 231);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(247, 34);
             this.label4.TabIndex = 13;
@@ -190,7 +178,7 @@ namespace File_encoder
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(12, 278);
+            this.label6.Location = new System.Drawing.Point(13, 248);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(405, 17);
             this.label6.TabIndex = 15;
@@ -228,6 +216,7 @@ namespace File_encoder
             this.performanceWarning.SetToolTip(this.performanceSlider, "Higher speed might slightly slow down your device, since more RAM will be used fo" +
         "r encryption or decryption.");
             this.performanceSlider.Value = 100000;
+            this.performanceSlider.ValueChanged += new System.EventHandler(this.PerformanceSlider_Change);
             // 
             // label7
             // 
@@ -260,7 +249,7 @@ namespace File_encoder
             this.AcceptButton = this.ConfirmButton;
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(427, 306);
+            this.ClientSize = new System.Drawing.Size(427, 273);
             this.Controls.Add(this.label8);
             this.Controls.Add(this.label7);
             this.Controls.Add(this.performanceSlider);
@@ -268,7 +257,6 @@ namespace File_encoder
             this.Controls.Add(this.TogglePasswordButton);
             this.Controls.Add(this.label6);
             this.Controls.Add(this.label4);
-            this.Controls.Add(this.progressCheckbox);
             this.Controls.Add(this.ProgressBar);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
@@ -305,7 +293,6 @@ namespace File_encoder
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.ProgressBar ProgressBar;
-        private System.Windows.Forms.CheckBox progressCheckbox;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Button TogglePasswordButton;

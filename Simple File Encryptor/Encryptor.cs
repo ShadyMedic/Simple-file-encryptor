@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.IO;
 using System.Text;
 using System.Windows.Forms;
@@ -14,23 +14,23 @@ namespace File_encoder
             this.filePath = filePath;
         }
 
-        public void Encrypt(string password, TrackBar performanceSlider, bool updateProgressBar, ProgressBar progressBar)
+        public void Encrypt(string password, TrackBar performanceSlider, ProgressBar progressBar)
         {
             password = this.EncryptPassword(password);
             byte[] bytePassword = Encoding.UTF8.GetBytes(password);
 
-            this.CryptFile(true, new FileStream(this.filePath, FileMode.Open, FileAccess.ReadWrite, FileShare.ReadWrite), bytePassword, performanceSlider, updateProgressBar, progressBar);
+            this.CryptFile(true, new FileStream(this.filePath, FileMode.Open, FileAccess.ReadWrite, FileShare.ReadWrite), bytePassword, performanceSlider, progressBar);
 
             //Append the .ecp extension to the encrypted file
             File.Move(this.filePath, this.filePath + ".ecp");
         }
 
-        public void Decrypt(string password, TrackBar performanceSlider, bool updateProgressBar, ProgressBar progressBar)
+        public void Decrypt(string password, TrackBar performanceSlider, ProgressBar progressBar)
         {
             password = this.EncryptPassword(password);
             byte[] bytePassword = Encoding.UTF8.GetBytes(password);
 
-            this.CryptFile(false, new FileStream(this.filePath, FileMode.Open, FileAccess.ReadWrite, FileShare.ReadWrite), bytePassword, performanceSlider, updateProgressBar, progressBar);
+            this.CryptFile(false, new FileStream(this.filePath, FileMode.Open, FileAccess.ReadWrite, FileShare.ReadWrite), bytePassword, performanceSlider, progressBar);
 
             //Remove the .exp extension from the encrypted file
             File.Move(this.filePath, this.filePath.Substring(0, filePath.LastIndexOf(".ecp")));
@@ -47,7 +47,7 @@ namespace File_encoder
 
             return "";
         }
-        private void CryptFile(bool encrypt, FileStream fStream, byte[] bytePassword, TrackBar performanceSlider, bool updateProgressBar, ProgressBar progressBar)
+        private void CryptFile(bool encrypt, FileStream fStream, byte[] bytePassword, TrackBar performanceSlider, ProgressBar progressBar)
         {
             BinaryReader bReader = new BinaryReader(fStream);
             BinaryWriter bWriter = new BinaryWriter(fStream);
@@ -80,7 +80,7 @@ namespace File_encoder
                 fStream.Position -= loadedBytes;
                 bWriter.Write(bs);
 
-                if (updateProgressBar && fStream.Position / onePercentByteCount > progressBar.Value)
+                if (fStream.Position / onePercentByteCount > progressBar.Value)
                 {
                     progressBar.Value = (progressBar.Value + 1) % 100;
                 }

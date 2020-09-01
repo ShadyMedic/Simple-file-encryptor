@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.ComponentModel;
 using System.IO;
 using System.Windows.Forms;
@@ -166,16 +166,15 @@ namespace File_encoder
             string filePath = FilepathField.Text;
             string password = PasswordField.Text;
             bool encrypting = (EncryptRadio.Checked == true) ? true : false;
-            bool updateProgressBar = (progressCheckbox.Checked == true) ? true : false;
 
             Encryptor encryptor = new Encryptor(filePath);
-            if (encrypting) { encryptor.Encrypt(password, performanceSlider, updateProgressBar, ProgressBar); }
-            else { encryptor.Decrypt(password, performanceSlider, updateProgressBar, ProgressBar); }
+            if (encrypting) { encryptor.Encrypt(password, performanceSlider, ProgressBar); }
+            else { encryptor.Decrypt(password, performanceSlider, ProgressBar); }
 
             //Reset progress bar
             ProgressBar.Value = 0;
             ProgressBar.Enabled = false;
-
+            
             //Reenable input fields
             BrowseButton.Enabled = true;
             EncryptRadio.Enabled = true;
