@@ -49,6 +49,7 @@ namespace File_encoder
             this.label7 = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
             this.performanceWarning = new System.Windows.Forms.ToolTip(this.components);
+            this.backgroundWorker = new System.ComponentModel.BackgroundWorker();
             ((System.ComponentModel.ISupportInitialize)(this.performanceSlider)).BeginInit();
             this.SuspendLayout();
             // 
@@ -244,6 +245,11 @@ namespace File_encoder
             this.performanceWarning.ReshowDelay = 10;
             this.performanceWarning.ToolTipIcon = System.Windows.Forms.ToolTipIcon.Warning;
             // 
+            // backgroundWorker
+            // 
+            this.backgroundWorker.WorkerReportsProgress = true;
+            this.backgroundWorker.WorkerSupportsCancellation = true;
+            // 
             // MainForm
             // 
             this.AcceptButton = this.ConfirmButton;
@@ -301,6 +307,7 @@ namespace File_encoder
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.ToolTip performanceWarning;
+        private System.ComponentModel.BackgroundWorker backgroundWorker;
     }
 }
 

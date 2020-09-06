@@ -1,42 +1,31 @@
-using System;
+﻿using System;
+using System.ComponentModel;
 using System.IO;
 using System.Text;
-using System.Windows.Forms;
 
 namespace File_encoder
 {
     class Encryptor
     {
-        private string filePath;
+        private static bool encrypting;
+        private static FileStream fStream;
+        private static BinaryReader bReader;
+        private static BinaryWriter bWriter;
+        private static BackgroundWorker backgroundWorker;
 
-        public Encryptor(string filePath)
+        public static int currentProgress = 0;
+        public static int bytesToReadAtOnce;
+
+        public static void Initialize(string filePath, bool encrypting, BackgroundWorker backgroundWorker)
         {
-            this.filePath = filePath;
+            fStream = new FileStream(filePath, FileMode.Open, FileAccess.ReadWrite, FileShare.ReadWrite);
+            bReader = new BinaryReader(fStream);
+            bWriter = new BinaryWriter(fStream);
+            Encryptor.encrypting = encrypting;
+            Encryptor.backgroundWorker = backgroundWorker;
         }
 
-        public void Encrypt(string password, TrackBar performanceSlider, ProgressBar progressBar)
-        {
-            password = this.EncryptPassword(password);
-            byte[] bytePassword = Encoding.UTF8.GetBytes(password);
-
-            this.CryptFile(true, new FileStream(this.filePath, FileMode.Open, FileAccess.ReadWrite, FileShare.ReadWrite), bytePassword, performanceSlider, progressBar);
-
-            //Append the .ecp extension to the encrypted file
-            File.Move(this.filePath, this.filePath + ".ecp");
-        }
-
-        public void Decrypt(string password, TrackBar performanceSlider, ProgressBar progressBar)
-        {
-            password = this.EncryptPassword(password);
-            byte[] bytePassword = Encoding.UTF8.GetBytes(password);
-
-            this.CryptFile(false, new FileStream(this.filePath, FileMode.Open, FileAccess.ReadWrite, FileShare.ReadWrite), bytePassword, performanceSlider, progressBar);
-
-            //Remove the .exp extension from the encrypted file
-            File.Move(this.filePath, this.filePath.Substring(0, filePath.LastIndexOf(".ecp")));
-        }
-
-        private string EncryptPassword(string password)
+        private static string EncryptPassword(string password)
         {
             return password;
             //TODO
@@ -47,10 +36,11 @@ namespace File_encoder
 
             return "";
         }
-        private void CryptFile(bool encrypt, FileStream fStream, byte[] bytePassword, TrackBar performanceSlider, ProgressBar progressBar)
+
+        public static void CryptFile(string password)
         {
-            BinaryReader bReader = new BinaryReader(fStream);
-            BinaryWriter bWriter = new BinaryWriter(fStream);
+            password = EncryptPassword(password);
+            byte[] bytePassword = Encoding.UTF8.GetBytes(password);
 
             int passwordLength = bytePassword.Length;
             long fileByteLength = fStream.Length;
@@ -58,10 +48,10 @@ namespace File_encoder
 
             for (long i = 0; fStream.Position < fStream.Length;)
             {
-                int byteCountToRead = performanceSlider.Value;
+                int byteCountToRead = bytesToReadAtOnce;
                 byte[] bs = bReader.ReadBytes(byteCountToRead);
                 int loadedBytes = bs.Length;
-                if (encrypt)
+                if (encrypting)
                 {
                     for (int j = 0; j < loadedBytes; j++)
                     {
@@ -80,13 +70,30 @@ namespace File_encoder
                 fStream.Position -= loadedBytes;
                 bWriter.Write(bs);
 
-                if (fStream.Position / onePercentByteCount > progressBar.Value)
+                if (fStream.Position / onePercentByteCount > currentProgress)
                 {
-                    progressBar.Value = (progressBar.Value + 1) % 100;
+                    int newValue = (int)(fStream.Position / onePercentByteCount) % 100;
+                    backgroundWorker.ReportProgress(newValue);
                 }
             }
+            CommitChanges();
+        }
+
+        private static void CommitChanges()
+        {
             bWriter.Flush();
             bWriter.Close();
+
+            if (encrypting)
+            {
+                //Append the .ecp extension to the encrypted file
+                File.Move(fStream.Name, fStream.Name + ".ecp");
+            }
+            else
+            {
+                //Remove the .ecp extension from the encrypted file
+                File.Move(fStream.Name, fStream.Name.Substring(0, fStream.Name.LastIndexOf(".ecp")));
+            }
         }
     }
 }

@@ -10,6 +10,19 @@ namespace File_encoder
         public MainForm()
         {
             InitializeComponent();
+            Encryptor.bytesToReadAtOnce = performanceSlider.Value;
+            backgroundWorker.WorkerReportsProgress = true;
+            backgroundWorker.DoWork += new DoWorkEventHandler(StartOperation);
+            backgroundWorker.ProgressChanged += new ProgressChangedEventHandler(BackgroundWorker_ProgressChanged);
+            backgroundWorker.RunWorkerCompleted += new RunWorkerCompletedEventHandler(OperationFinished);
+        }
+
+        /**
+         * Method updating progress bar, when new 1 % of progress is made
+         */
+        void BackgroundWorker_ProgressChanged(object sender, ProgressChangedEventArgs e)
+        {
+            ProgressBar.Value = e.ProgressPercentage;
         }
 
         /**
@@ -39,7 +52,7 @@ namespace File_encoder
         private void OpenFileDialog_FileOk(object sender, CancelEventArgs e)
         {
             string selectedFilePath = openFileDialog.FileName;
-            
+
             //Check if the file isn't already encrypted, if the action selected is encrypting
             if (selectedFilePath.EndsWith(".ecp") && EncryptRadio.Checked)
             {
@@ -110,6 +123,14 @@ namespace File_encoder
         }
 
         /**
+         * Method called after changing the value on the performance TrackBar control
+         */
+        private void PerformanceSlider_Change(object sender, EventArgs e)
+        {
+            Encryptor.bytesToReadAtOnce = (performanceSlider.Value * 1000); //Values in the TrackBar are meant to be kB
+        }
+
+        /**
          * Method called after typing anything in the password field or selecting a file
          */
         private void CheckConfirmRequirements()
@@ -122,6 +143,14 @@ namespace File_encoder
             {
                 ConfirmButton.Enabled = false;
             }
+        }
+
+        /**
+         * Method called when the backround worker is launched (after clicking the "Confirm button" and passing validation
+         */
+        private void StartOperation(object sender, DoWorkEventArgs e)
+        {
+            Encryptor.CryptFile(PasswordField.Text);
         }
 
         /**
@@ -157,6 +186,7 @@ namespace File_encoder
             EncryptRadio.Enabled = false;
             DecryptRadio.Enabled = false;
             PasswordField.Enabled = false;
+            PasswordField.ReadOnly = true;
             ConfirmButton.Enabled = false;
 
             //Reset progress bar
@@ -164,26 +194,42 @@ namespace File_encoder
             ProgressBar.Enabled = true;
 
             string filePath = FilepathField.Text;
-            string password = PasswordField.Text;
             bool encrypting = (EncryptRadio.Checked == true) ? true : false;
 
-            Encryptor encryptor = new Encryptor(filePath);
-            if (encrypting) { encryptor.Encrypt(password, performanceSlider, ProgressBar); }
-            else { encryptor.Decrypt(password, performanceSlider, ProgressBar); }
+            Encryptor.Initialize(filePath, encrypting, backgroundWorker);
+            backgroundWorker.RunWorkerAsync();
+        }
+
+        /**
+         * Callback method called when backround worker finishes its work
+         */
+        private void OperationFinished(object sender, RunWorkerCompletedEventArgs e)
+        {
+            ResetForm((EncryptRadio.Checked == true) ? true : false);
+        }
+
+        /**
+         * Method reenabling controls on the form after finishing the operation
+         */
+        public void ResetForm(bool encrypting)
+        {
+            if (encrypting) { MessageBox.Show("File encrypted successfully.", "", MessageBoxButtons.OK, MessageBoxIcon.Information); }
+            else { MessageBox.Show("File decrypted successfully.", "", MessageBoxButtons.OK, MessageBoxIcon.Information); }
 
             //Reset progress bar
             ProgressBar.Value = 0;
             ProgressBar.Enabled = false;
-            
+
             //Reenable input fields
             BrowseButton.Enabled = true;
             EncryptRadio.Enabled = true;
             DecryptRadio.Enabled = true;
             PasswordField.Enabled = true;
-            ConfirmButton.Enabled = true;
+            PasswordField.ReadOnly = false;
+            //ConfirmButton.Enabled = true; Don't enable the confirm button again, because no file will be chosen, so the conditions won't be met
 
-            if (encrypting) { MessageBox.Show("File encrypted successfully.", "", MessageBoxButtons.OK, MessageBoxIcon.Information); }
-            else { MessageBox.Show("File decrypted successfully.", "", MessageBoxButtons.OK, MessageBoxIcon.Information); }
+            //Clear the field with path to file (it was renamed anyway)
+            FilepathField.Text = "";
         }
     }
 }
