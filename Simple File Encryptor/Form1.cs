@@ -127,7 +127,7 @@ namespace File_encoder
          */
         private void PerformanceSlider_Change(object sender, EventArgs e)
         {
-            Encryptor.bytesToReadAtOnce = (performanceSlider.Value * 1000); //Values in the TrackBar are meant to be kB
+            Encryptor.bytesToReadAtOnce = (performanceSlider.Value * 1024); //Values in the TrackBar are meant to be kB
         }
 
         /**
@@ -138,10 +138,12 @@ namespace File_encoder
             if (FilepathField.TextLength > 0 && PasswordField.TextLength > 0)
             {
                 ConfirmButton.Enabled = true;
+                ConfirmButton.FlatStyle = FlatStyle.Flat;
             }
             else
             {
                 ConfirmButton.Enabled = false;
+                ConfirmButton.FlatStyle = FlatStyle.System;
             }
         }
 
@@ -187,7 +189,11 @@ namespace File_encoder
             DecryptRadio.Enabled = false;
             PasswordField.Enabled = false;
             PasswordField.ReadOnly = true;
-            ConfirmButton.Enabled = false;
+
+            //Toggle buttons
+            ConfirmButton.Visible = false;
+            PauseButton.Visible = true;
+            CancelButton.Visible = true;
 
             //Reset progress bar
             ProgressBar.Value = 0;
@@ -198,6 +204,34 @@ namespace File_encoder
 
             Encryptor.Initialize(filePath, encrypting, backgroundWorker);
             backgroundWorker.RunWorkerAsync();
+        }
+
+        /**
+         * Method called after clicking the resume button
+         */
+        private void ResumeButton_Click(object sender, EventArgs e)
+        {
+            Encryptor.Resume();
+            ResumeButton.Visible = false;
+            PauseButton.Visible = true;
+        }
+
+        /**
+         * Method called after clicking the pause button
+         */
+        private void PauseButton_Click(object sender, EventArgs e)
+        {
+            Encryptor.Pause();
+            PauseButton.Visible = false;
+            ResumeButton.Visible = true;
+        }
+
+        /**
+         * Method called after clicking the cancel button
+         */
+        private void CancelButton_Click(object sender, EventArgs e)
+        {
+            Encryptor.Cancel();
         }
 
         /**
@@ -213,23 +247,34 @@ namespace File_encoder
          */
         public void ResetForm(bool encrypting)
         {
-            if (encrypting) { MessageBox.Show("File encrypted successfully.", "", MessageBoxButtons.OK, MessageBoxIcon.Information); }
-            else { MessageBox.Show("File decrypted successfully.", "", MessageBoxButtons.OK, MessageBoxIcon.Information); }
+            if (Encryptor.wasCanceled == false)
+            {
+                //Display success message
+                if (encrypting) { MessageBox.Show("File encrypted successfully.", "", MessageBoxButtons.OK, MessageBoxIcon.Information); }
+                else { MessageBox.Show("File decrypted successfully.", "", MessageBoxButtons.OK, MessageBoxIcon.Information); }
+
+                //Clear the field with path to file (it was renamed anyway)
+                FilepathField.Text = "";
+                ConfirmButton.Enabled = false;
+                ConfirmButton.FlatStyle = FlatStyle.System;
+            }
 
             //Reset progress bar
             ProgressBar.Value = 0;
             ProgressBar.Enabled = false;
-
+            
             //Reenable input fields
             BrowseButton.Enabled = true;
             EncryptRadio.Enabled = true;
             DecryptRadio.Enabled = true;
             PasswordField.Enabled = true;
             PasswordField.ReadOnly = false;
-            //ConfirmButton.Enabled = true; Don't enable the confirm button again, because no file will be chosen, so the conditions won't be met
 
-            //Clear the field with path to file (it was renamed anyway)
-            FilepathField.Text = "";
+            //Toggle buttons
+            ConfirmButton.Visible = true;
+            PauseButton.Visible = false;
+            ResumeButton.Visible = false;
+            CancelButton.Visible = false;
         }
     }
 }

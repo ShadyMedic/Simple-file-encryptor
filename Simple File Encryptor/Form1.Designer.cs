@@ -50,6 +50,9 @@ namespace File_encoder
             this.label8 = new System.Windows.Forms.Label();
             this.performanceWarning = new System.Windows.Forms.ToolTip(this.components);
             this.backgroundWorker = new System.ComponentModel.BackgroundWorker();
+            this.PauseButton = new System.Windows.Forms.Button();
+            this.CancelButton = new System.Windows.Forms.Button();
+            this.ResumeButton = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.performanceSlider)).BeginInit();
             this.SuspendLayout();
             // 
@@ -94,7 +97,13 @@ namespace File_encoder
             // 
             // ConfirmButton
             // 
+            this.ConfirmButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(192)))), ((int)(((byte)(255)))));
             this.ConfirmButton.Enabled = false;
+            this.ConfirmButton.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(192)))));
+            this.ConfirmButton.FlatAppearance.BorderSize = 2;
+            this.ConfirmButton.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(255)))));
+            this.ConfirmButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(128)))), ((int)(((byte)(255)))));
+            this.ConfirmButton.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.ConfirmButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.ConfirmButton.Location = new System.Drawing.Point(16, 150);
             this.ConfirmButton.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
@@ -102,7 +111,7 @@ namespace File_encoder
             this.ConfirmButton.Size = new System.Drawing.Size(400, 52);
             this.ConfirmButton.TabIndex = 5;
             this.ConfirmButton.Text = "Confirm";
-            this.ConfirmButton.UseVisualStyleBackColor = true;
+            this.ConfirmButton.UseVisualStyleBackColor = false;
             this.ConfirmButton.Click += new System.EventHandler(this.ConfirmButton_Click);
             // 
             // label1
@@ -117,7 +126,7 @@ namespace File_encoder
             // EncryptRadio
             // 
             this.EncryptRadio.AutoSize = true;
-            this.EncryptRadio.Location = new System.Drawing.Point(107, 8);
+            this.EncryptRadio.Location = new System.Drawing.Point(107, 7);
             this.EncryptRadio.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.EncryptRadio.Name = "EncryptRadio";
             this.EncryptRadio.Size = new System.Drawing.Size(77, 21);
@@ -159,11 +168,14 @@ namespace File_encoder
             // ProgressBar
             // 
             this.ProgressBar.Cursor = System.Windows.Forms.Cursors.Arrow;
+            this.ProgressBar.ForeColor = System.Drawing.Color.Lime;
             this.ProgressBar.Location = new System.Drawing.Point(16, 206);
             this.ProgressBar.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.ProgressBar.MarqueeAnimationSpeed = 0;
+            this.ProgressBar.MarqueeAnimationSpeed = 500;
             this.ProgressBar.Name = "ProgressBar";
             this.ProgressBar.Size = new System.Drawing.Size(399, 23);
+            this.ProgressBar.Step = 1;
+            this.ProgressBar.Style = System.Windows.Forms.ProgressBarStyle.Continuous;
             this.ProgressBar.TabIndex = 11;
             // 
             // label4
@@ -179,7 +191,7 @@ namespace File_encoder
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(13, 248);
+            this.label6.Location = new System.Drawing.Point(13, 249);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(405, 17);
             this.label6.TabIndex = 15;
@@ -199,7 +211,7 @@ namespace File_encoder
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(13, 93);
+            this.label5.Location = new System.Drawing.Point(13, 94);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(89, 17);
             this.label5.TabIndex = 17;
@@ -208,10 +220,11 @@ namespace File_encoder
             // performanceSlider
             // 
             this.performanceSlider.Location = new System.Drawing.Point(108, 89);
+            this.performanceSlider.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.performanceSlider.Maximum = 500000;
             this.performanceSlider.Minimum = 1;
             this.performanceSlider.Name = "performanceSlider";
-            this.performanceSlider.Size = new System.Drawing.Size(226, 56);
+            this.performanceSlider.Size = new System.Drawing.Size(227, 56);
             this.performanceSlider.TabIndex = 18;
             this.performanceSlider.TickFrequency = 50000;
             this.performanceWarning.SetToolTip(this.performanceSlider, "Higher speed might slightly slow down your device, since more RAM will be used fo" +
@@ -250,12 +263,72 @@ namespace File_encoder
             this.backgroundWorker.WorkerReportsProgress = true;
             this.backgroundWorker.WorkerSupportsCancellation = true;
             // 
+            // PauseButton
+            // 
+            this.PauseButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
+            this.PauseButton.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
+            this.PauseButton.FlatAppearance.BorderSize = 2;
+            this.PauseButton.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(64)))));
+            this.PauseButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(128)))));
+            this.PauseButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.PauseButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F);
+            this.PauseButton.Location = new System.Drawing.Point(16, 150);
+            this.PauseButton.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.PauseButton.Name = "PauseButton";
+            this.PauseButton.Size = new System.Drawing.Size(195, 52);
+            this.PauseButton.TabIndex = 21;
+            this.PauseButton.Text = "Pause";
+            this.PauseButton.UseVisualStyleBackColor = false;
+            this.PauseButton.Visible = false;
+            this.PauseButton.Click += new System.EventHandler(this.PauseButton_Click);
+            // 
+            // CancelButton
+            // 
+            this.CancelButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(192)))), ((int)(((byte)(192)))));
+            this.CancelButton.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.CancelButton.FlatAppearance.BorderSize = 2;
+            this.CancelButton.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.CancelButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(128)))));
+            this.CancelButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.CancelButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F);
+            this.CancelButton.Location = new System.Drawing.Point(220, 150);
+            this.CancelButton.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.CancelButton.Name = "CancelButton";
+            this.CancelButton.Size = new System.Drawing.Size(195, 52);
+            this.CancelButton.TabIndex = 22;
+            this.CancelButton.Text = "Cancel";
+            this.CancelButton.UseVisualStyleBackColor = false;
+            this.CancelButton.Visible = false;
+            this.CancelButton.Click += new System.EventHandler(this.CancelButton_Click);
+            // 
+            // ResumeButton
+            // 
+            this.ResumeButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
+            this.ResumeButton.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
+            this.ResumeButton.FlatAppearance.BorderSize = 2;
+            this.ResumeButton.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(255)))), ((int)(((byte)(64)))));
+            this.ResumeButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(255)))), ((int)(((byte)(128)))));
+            this.ResumeButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.ResumeButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F);
+            this.ResumeButton.Location = new System.Drawing.Point(16, 150);
+            this.ResumeButton.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.ResumeButton.Name = "ResumeButton";
+            this.ResumeButton.Size = new System.Drawing.Size(195, 52);
+            this.ResumeButton.TabIndex = 23;
+            this.ResumeButton.Text = "Resume";
+            this.ResumeButton.UseVisualStyleBackColor = false;
+            this.ResumeButton.Visible = false;
+            this.ResumeButton.Click += new System.EventHandler(this.ResumeButton_Click);
+            // 
             // MainForm
             // 
             this.AcceptButton = this.ConfirmButton;
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(427, 273);
+            this.Controls.Add(this.ResumeButton);
+            this.Controls.Add(this.CancelButton);
+            this.Controls.Add(this.PauseButton);
             this.Controls.Add(this.label8);
             this.Controls.Add(this.label7);
             this.Controls.Add(this.performanceSlider);
@@ -308,6 +381,9 @@ namespace File_encoder
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.ToolTip performanceWarning;
         private System.ComponentModel.BackgroundWorker backgroundWorker;
+        private System.Windows.Forms.Button PauseButton;
+        private System.Windows.Forms.Button CancelButton;
+        private System.Windows.Forms.Button ResumeButton;
     }
 }
 
