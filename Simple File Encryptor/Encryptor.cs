@@ -70,14 +70,84 @@ namespace File_encoder
 
         private static string EncryptPassword(string password)
         {
-            return password;
-            //TODO
+            sbyte coefficient = -1;
+            StringBuilder builder = new StringBuilder();
 
-            int passwordLength = password.Length;
+            //Action 1
+            //Move rearrange characters in style last - first - second to last - second ...
+            for (int i = 0; builder.Length < password.Length; i++, coefficient *= -1)
+            {
+                if (coefficient == -1)
+                {
+                    builder.Append(password[password.Length - 1 - i]);
+                }
+                else
+                {
+                    builder.Append(password[--i]);
+                }
+            }
+            password = builder.ToString();
+            builder.Clear();
 
-            //Get the current time to calculate shift for caesar cipher
+            //Action 2
+            //Copy the password, but swap the letters' case
+            builder.Append(password);
+            for (int i = 0; i < password.Length; i++)
+            {
+                if (Char.IsUpper(password[i])) { builder.Append(password[i].ToString().ToLower()); }
+                else { builder.Append(password[i].ToString().ToUpper()); }
+            }
+            password = builder.ToString();
+            builder.Clear();
 
-            return "";
+            //Action 3
+            //Swap case in every second character
+            for (int i = 0; i < password.Length; i++)
+            {
+                if (i % 2 == 0) { builder.Append(password[i]); }
+                else if (Char.IsUpper(password[i])) { builder.Append(password[i].ToString().ToLower()); }
+                else { builder.Append(password[i].ToString().ToUpper()); }
+            }
+            password = builder.ToString();
+            builder.Clear();
+
+            //Action 4
+            //Perform string rotation operation and connect all results together
+            for (int i = 0; i < password.Length; i++)
+            {
+                for (int j = 0; j < password.Length; j++)
+                {
+                    builder.Append(password[(i + j) % password.Length]);
+                }
+            }
+            password = builder.ToString();
+            builder.Clear();
+
+            //Action 5
+            //Convert characters into byte array
+            byte[] bytePassword = Encoding.UTF8.GetBytes(password);
+
+            //Action 6
+            //Add the position of each byte to it
+            for (int i = 0; i < bytePassword.Length; i++)
+            {
+                bytePassword[i] += (byte)i;
+            }
+
+            //Action 7
+            //Add, subtract or multiply each byte by sum of its neighbours
+            coefficient = 1;
+            byte[] bytePasswordCopy = new byte[bytePassword.Length];
+            bytePassword.CopyTo(bytePasswordCopy, 0);
+            for (int i = 0; i < bytePassword.Length; i++)
+            {
+                int prevIndex = (i - 1 < 0) ? bytePassword.Length - 1 : i - 1;
+                int nextIndex = (i + 1 == bytePassword.Length) ? 0 : i + 1;
+                bytePassword[i] = (byte)(bytePasswordCopy[i] + coefficient * (bytePasswordCopy[prevIndex] + bytePasswordCopy[nextIndex]));
+                coefficient *= -1;
+            }
+
+            return Encoding.Default.GetString(bytePassword);
         }
 
         public static void CryptFile(string password)
@@ -86,11 +156,9 @@ namespace File_encoder
             byte[] bytePassword = Encoding.UTF8.GetBytes(password);
 
             int passwordLength = bytePassword.Length;
-            long fileByteLength = fStream.Length;
 
             for (long i = 0; fStream.Position < fStream.Length;)
             {
-                DebugLogger.log("Read " + bytesToReadAtOnce + "bytes.");
                 byte[] bs = bReader.ReadBytes(bytesToReadAtOnce);
                 int loadedBytes = bs.Length;
                 if (encrypting)
