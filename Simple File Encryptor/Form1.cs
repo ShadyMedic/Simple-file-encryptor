@@ -1,6 +1,7 @@
 using System;
 using System.ComponentModel;
 using System.IO;
+using System.Text.RegularExpressions;
 using System.Windows.Forms;
 
 namespace File_encoder
@@ -135,7 +136,7 @@ namespace File_encoder
          */
         private void CheckConfirmRequirements()
         {
-            if (FilepathField.TextLength > 0 && PasswordField.TextLength > 0)
+            if (FilepathField.TextLength > 0 && PasswordField.TextLength >= 4)
             {
                 ConfirmButton.Enabled = true;
                 ConfirmButton.FlatStyle = FlatStyle.Flat;
@@ -174,6 +175,17 @@ namespace File_encoder
             if (PasswordField.Text == String.Empty)
             {
                 MessageBox.Show("Enter a password", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+            if (PasswordField.Text.Length < 4)
+            {
+                MessageBox.Show("Password must be at least 4 characters long", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+            Regex re = new Regex("(?=.*[a-záčďěéňřšťůúýž])|(?=.*[A-ZÁČĎĚÉŇŘŠŤŮÚÝŽ])");
+            if (!re.IsMatch(PasswordField.Text))
+            {
+                MessageBox.Show("Password must contain at least one letter", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
 
