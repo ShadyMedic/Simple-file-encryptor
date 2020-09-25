@@ -66,6 +66,8 @@ namespace SimpleFileEncryptor
             // 
             // FilepathField
             // 
+            this.FilepathField.BackColor = System.Drawing.Color.White;
+            this.FilepathField.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.FilepathField.Enabled = false;
             this.FilepathField.Location = new System.Drawing.Point(80, 27);
             this.FilepathField.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
@@ -75,6 +77,8 @@ namespace SimpleFileEncryptor
             // 
             // PasswordField
             // 
+            this.PasswordField.BackColor = System.Drawing.Color.White;
+            this.PasswordField.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.PasswordField.Location = new System.Drawing.Point(80, 50);
             this.PasswordField.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.PasswordField.Name = "PasswordField";
@@ -176,9 +180,9 @@ namespace SimpleFileEncryptor
             this.label4.Location = new System.Drawing.Point(10, 188);
             this.label4.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(186, 26);
+            this.label4.Size = new System.Drawing.Size(261, 26);
             this.label4.TabIndex = 13;
-            this.label4.Text = "Created by Jan Štěch in August 2020.\r\n\r\n";
+            this.label4.Text = "Created by Jan Štěch in August and September 2020.\r\n\r\n";
             // 
             // label6
             // 
@@ -245,7 +249,7 @@ namespace SimpleFileEncryptor
             // label8
             // 
             this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(224, 104);
+            this.label8.Location = new System.Drawing.Point(265, 104);
             this.label8.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(27, 13);
@@ -345,6 +349,7 @@ namespace SimpleFileEncryptor
             this.AcceptButton = this.ConfirmButton;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(223)))), ((int)(((byte)(223)))), ((int)(((byte)(255)))));
             this.ClientSize = new System.Drawing.Size(320, 222);
             this.Controls.Add(this.ResumeButton);
             this.Controls.Add(this.CancelButton);
@@ -372,6 +377,7 @@ namespace SimpleFileEncryptor
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "MainForm";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Simple File Encryptor";
             ((System.ComponentModel.ISupportInitialize)(this.performanceSlider)).EndInit();
             this.ResumeLayout(false);
@@ -401,7 +407,7 @@ namespace SimpleFileEncryptor
         private System.Windows.Forms.ToolTip performanceWarning;
         private System.ComponentModel.BackgroundWorker backgroundWorker;
         private System.Windows.Forms.Button PauseButton;
-        private System.Windows.Forms.Button CancelButton;
+        private new System.Windows.Forms.Button CancelButton;
         private System.Windows.Forms.Button ResumeButton;
         private System.Windows.Forms.Button BrowseButton;
     }
