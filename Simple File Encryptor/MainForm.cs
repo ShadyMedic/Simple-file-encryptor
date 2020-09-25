@@ -113,13 +113,11 @@ namespace File_encoder
             {
                 //Revealing password
                 PasswordField.PasswordChar = '\0';
-                TogglePasswordButton.Text = "🕶";
             }
             else
             {
                 //Hiding password
                 PasswordField.PasswordChar = '•';
-                TogglePasswordButton.Text = "👓";
             }
         }
 
