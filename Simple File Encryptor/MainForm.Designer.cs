@@ -1,4 +1,4 @@
-namespace File_encoder
+namespace SimpleFileEncryptor
 {
     partial class MainForm
     {

@@ -1,6 +1,6 @@
 ﻿using System.IO;
 
-namespace File_encoder
+namespace SimpleFileEncryptor
 {
     class DebugLogger
     {

@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace File_encoder.Properties
+namespace SimpleFileEncryptor.Properties
 {
 
 

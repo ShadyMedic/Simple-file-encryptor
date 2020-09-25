@@ -4,7 +4,7 @@ using System.IO;
 using System.Text.RegularExpressions;
 using System.Windows.Forms;
 
-namespace File_encoder
+namespace SimpleFileEncryptor
 {
     public partial class MainForm : Form
     {
