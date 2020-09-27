@@ -21,6 +21,12 @@ namespace SimpleFileEncryptor
         private static bool canceled = false;
         public static bool wasCanceled = false;
 
+        /// <summary>
+        /// Method seting values for the encryptor class
+        /// </summary>
+        /// <param name="filePath">Full path to the file to be encrypted or decrypted</param>
+        /// <param name="encrypting">true in case the operation to do is encryption, false otherwise</param>
+        /// <param name="backgroundWorker">Instance of background worker performing the operation</param>
         public static void Initialize(string filePath, bool encrypting, BackgroundWorker backgroundWorker)
         {
             fStream = new FileStream(filePath, FileMode.Open, FileAccess.ReadWrite, FileShare.ReadWrite);
@@ -35,22 +41,34 @@ namespace SimpleFileEncryptor
             wasCanceled = false;
         }
 
+        /// <summary>
+        /// Method resuming paused operation
+        /// </summary>
         public static void Resume()
         {
             paused = false;
         }
 
+        /// <summary>
+        /// Method pausing ongoing operation
+        /// </summary>
         public static void Pause()
         {
             paused = true;
         }
 
+        /// <summary>
+        /// Method canceling ongoing or paused operation
+        /// </summary>
         public static void Cancel()
         {
             canceled = true;
             wasCanceled = true;
         }
 
+        /// <summary>
+        /// Method doing nothing but checking, if the paused operation was unpaused or canceled every 100 ms
+        /// </summary>
         private static void PauseLoop()
         {
             if (!paused) { return; }
@@ -58,6 +76,11 @@ namespace SimpleFileEncryptor
             Thread.Sleep(100);  //Wait for a while
         }
 
+        /// <summary>
+        /// Method checking if new 1 % of progress has been made and reporting it to the main form
+        /// </summary>
+        /// <param name="bytesDone"></param>
+        /// <param name="onePercentByteCount"></param>
         private static void CheckProgress(long bytesDone, long onePercentByteCount)
         {
             if ((currentProgress + 1) * onePercentByteCount <= bytesDone)
@@ -68,6 +91,12 @@ namespace SimpleFileEncryptor
             }
         }
 
+        /// <summary>
+        /// Method performing encryption of the password string, so it won't be used directly in the encryption of the file
+        /// The same password always produces the same output of this method
+        /// </summary>
+        /// <param name="password">Password to be encrypted</param>
+        /// <returns>Encrypted password</returns>
         private static string EncryptPassword(string password)
         {
             sbyte coefficient = -1;
@@ -150,6 +179,11 @@ namespace SimpleFileEncryptor
             return Encoding.Default.GetString(bytePassword);
         }
 
+        /// <summary>
+        /// Method encrypting or decrypting the selected file using the specified password
+        /// The password is encrypted before its use by the EncryptPassword method
+        /// </summary>
+        /// <param name="password"></param>
         public static void CryptFile(string password)
         {
             password = EncryptPassword(password);
@@ -193,6 +227,10 @@ namespace SimpleFileEncryptor
             CommitChanges();
         }
 
+        /// <summary>
+        /// Method rewriting the original file with its encrypted or decrypted version and closing the BinaryWriter stream
+        /// The .ecp file extension is added or removed from the file too
+        /// </summary>
         private static void CommitChanges()
         {
             bWriter.Flush();
