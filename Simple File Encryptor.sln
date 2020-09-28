@@ -1,0 +1,49 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29926.136
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Simple File Encryptor", "Simple File Encryptor\Simple File Encryptor.csproj", "{CF41CC6D-8EAE-4E43-8766-70209AFA940D}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Binary Reader", "Binary Reader\Binary Reader.csproj", "{551B855B-6074-4D45-AD31-CD3CCEA9787C}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Binary Writer", "Binary Writer\Binary Writer.csproj", "{107E6511-C11E-4219-8BDB-DFA5A5A526AD}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Byte Comparator", "Byte Comparator\Byte Comparator.csproj", "{C41D5CE6-9057-45A0-9624-E07BBDE8F2CE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Step By Step Password Encryptor", "Step By Step Password Encryptor\Step By Step Password Encryptor.csproj", "{1FE63F3E-C60C-4520-A292-D37658613A1F}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{CF41CC6D-8EAE-4E43-8766-70209AFA940D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CF41CC6D-8EAE-4E43-8766-70209AFA940D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CF41CC6D-8EAE-4E43-8766-70209AFA940D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CF41CC6D-8EAE-4E43-8766-70209AFA940D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{551B855B-6074-4D45-AD31-CD3CCEA9787C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{551B855B-6074-4D45-AD31-CD3CCEA9787C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{551B855B-6074-4D45-AD31-CD3CCEA9787C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{551B855B-6074-4D45-AD31-CD3CCEA9787C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{107E6511-C11E-4219-8BDB-DFA5A5A526AD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{107E6511-C11E-4219-8BDB-DFA5A5A526AD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{107E6511-C11E-4219-8BDB-DFA5A5A526AD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{107E6511-C11E-4219-8BDB-DFA5A5A526AD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C41D5CE6-9057-45A0-9624-E07BBDE8F2CE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C41D5CE6-9057-45A0-9624-E07BBDE8F2CE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C41D5CE6-9057-45A0-9624-E07BBDE8F2CE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C41D5CE6-9057-45A0-9624-E07BBDE8F2CE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1FE63F3E-C60C-4520-A292-D37658613A1F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1FE63F3E-C60C-4520-A292-D37658613A1F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1FE63F3E-C60C-4520-A292-D37658613A1F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1FE63F3E-C60C-4520-A292-D37658613A1F}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {DE7AC1AD-BE9D-4CD3-ADFE-4459A884C8DF}
+	EndGlobalSection
+EndGlobal
