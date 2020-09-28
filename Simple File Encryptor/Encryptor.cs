@@ -3,6 +3,7 @@ using System.ComponentModel;
 using System.IO;
 using System.Text;
 using System.Threading;
+using System.Windows.Forms;
 
 namespace SimpleFileEncryptor
 {
@@ -247,12 +248,36 @@ namespace SimpleFileEncryptor
             if (encrypting)
             {
                 //Append the .ecp extension to the encrypted file
-                File.Move(fStream.Name, fStream.Name + ".ecp");
+                if (File.Exists(fStream.Name + ".ecp"))
+                {
+                    int i;
+                    for (i = 2; File.Exists(fStream.Name + " (" + i + ").ecp"); i++) { }
+                    MessageBox.Show("File\n" + fStream.Name + ".ecp\nalready exists.\n The encrypted file was named\n" + fStream.Name + " (" + i + ").ecp", "File already exists", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    File.Move(fStream.Name, fStream.Name + " (" + i + ").ecp");
+                }
+                else
+                {
+                    File.Move(fStream.Name, fStream.Name + ".ecp");
+                }
             }
             else
             {
                 //Remove the .ecp extension from the encrypted file
-                File.Move(fStream.Name, fStream.Name.Substring(0, fStream.Name.LastIndexOf(".ecp")));
+                string fileStr = fStream.Name.Substring(0, fStream.Name.LastIndexOf(".ecp"));
+                string fileName = Path.GetFileNameWithoutExtension(fileStr);
+                string fileExtension = Path.GetExtension(fileStr);
+                if (File.Exists(fileStr))
+                {
+                    int i;
+                    for (i = 2; File.Exists(fileName + " (" + i + ")" + fileExtension); i++) { }
+                    MessageBox.Show("File\n" + fileStr + "\nalready exists.\n The decrypted file was named\n" + fileName + " (" + i + ")" + fileExtension, "File already exists", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    File.Move(fStream.Name, Path.GetDirectoryName(fileStr) + "\\" + fileName + " (" + i + ")" + fileExtension);
+                }
+                else
+                {
+
+                    File.Move(fStream.Name, fileStr);
+                }
             }
 
             //Set progressBar to 100 %
