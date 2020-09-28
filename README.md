@@ -1,6 +1,6 @@
 # Simple file encryptor
 Do you have a text file on your computer that stores some kind of sensitive information (passwords, internet links or something else you want to protect)?
-Then this application is what you are looking for. True, it won't protect your files well enough to be safe against NSA, FBI, KGB or BIS agents, but your friends, family or people you share a computer with have pretty much no chance at getting to your information. Not even system administrators.
+Then this application is what you are looking for. True, it won't protect your files well enough to be safe against NSA agents, but your friends, family or people you share a computer with have pretty much no chance at getting to your information. Not even system administrators.
 
 ### How does it work? Very simply.
 1) You open the application
@@ -30,4 +30,4 @@ The application uses an improved version of Vigenère cipher to encrypt and decr
 ![Screenshot n. 1](https://i.postimg.cc/9Mbzqfjj/img1.png)
 ![Screenshot n. 2](https://i.postimg.cc/66HyWT0r/img2.png)
 ![Screenshot n. 3](https://i.postimg.cc/Bbw6Mw6Y/img3.png)
-![Screenshot n. 4](https://i.postimg.cc/bNtDmpx1/img4.png)
+![Screenshot n. 4](https://i.postimg.cc/Hsdn9XL1/img4.png)
