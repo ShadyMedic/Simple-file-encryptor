@@ -26,7 +26,7 @@ namespace SimpleFileEncryptor
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        void BackgroundWorker_ProgressChanged(object sender, ProgressChangedEventArgs e)
+        private void BackgroundWorker_ProgressChanged(object sender, ProgressChangedEventArgs e)
         {
             ProgressBar.Value = e.ProgressPercentage;
         }
@@ -43,7 +43,7 @@ namespace SimpleFileEncryptor
             openFileDialog.Filter = (EncryptRadio.Checked == true) ? "Unencrypted files|*" : "Encrypted files|*.ecp";
             FilepathField.Text = "";
 
-            this.CheckConfirmRequirements();
+            CheckConfirmRequirements();
         }
 
         /// <summary>
@@ -103,7 +103,7 @@ namespace SimpleFileEncryptor
                 }
             }
             FilepathField.Text = selectedFilePath;
-            this.CheckConfirmRequirements();
+            CheckConfirmRequirements();
         }
 
         /// <summary>
@@ -113,7 +113,7 @@ namespace SimpleFileEncryptor
         /// <param name="e"></param>
         private void PasswordField_TextChanged(object sender, EventArgs e)
         {
-            this.CheckConfirmRequirements();
+            CheckConfirmRequirements();
         }
 
         /// <summary>
@@ -191,7 +191,7 @@ namespace SimpleFileEncryptor
                 MessageBox.Show("Select the operation", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
-            if (PasswordField.Text == String.Empty)
+            if (PasswordField.Text == string.Empty)
             {
                 MessageBox.Show("Enter a password", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
@@ -302,7 +302,7 @@ namespace SimpleFileEncryptor
             //Reset progress bar
             ProgressBar.Value = 0;
             ProgressBar.Enabled = false;
-            
+
             //Reenable input fields
             BrowseButton.Enabled = true;
             EncryptRadio.Enabled = true;

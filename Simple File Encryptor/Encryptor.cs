@@ -7,7 +7,7 @@ using System.Windows.Forms;
 
 namespace SimpleFileEncryptor
 {
-    class Encryptor
+    internal class Encryptor
     {
         private static bool encrypting;
         private static FileStream fStream;
@@ -132,7 +132,7 @@ namespace SimpleFileEncryptor
             builder.Append(password);
             for (int i = 0; i < password.Length; i++)
             {
-                if (Char.IsUpper(password[i])) { builder.Append(password[i].ToString().ToLower()); }
+                if (char.IsUpper(password[i])) { builder.Append(password[i].ToString().ToLower()); }
                 else { builder.Append(password[i].ToString().ToUpper()); }
             }
             password = builder.ToString();
@@ -143,7 +143,7 @@ namespace SimpleFileEncryptor
             for (int i = 0; i < password.Length; i++)
             {
                 if (i % 2 == 0) { builder.Append(password[i]); }
-                else if (Char.IsUpper(password[i])) { builder.Append(password[i].ToString().ToLower()); }
+                else if (char.IsUpper(password[i])) { builder.Append(password[i].ToString().ToLower()); }
                 else { builder.Append(password[i].ToString().ToUpper()); }
             }
             password = builder.ToString();
