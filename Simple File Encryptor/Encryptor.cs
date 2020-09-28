@@ -85,7 +85,15 @@ namespace SimpleFileEncryptor
         {
             if ((currentProgress + 1) * onePercentByteCount <= bytesDone)
             {
-                int newValue = (int)(bytesDone / onePercentByteCount) % 100;
+                int newValue;
+                try
+                {
+                    newValue = (int)(bytesDone / onePercentByteCount) % 100;
+                }
+                catch (DivideByZeroException)
+                {
+                    newValue = 100;
+                }
                 backgroundWorker.ReportProgress(newValue);
                 currentProgress = newValue;
             }
