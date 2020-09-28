@@ -30,4 +30,4 @@ The application uses an improved version of Vigenère cipher to encrypt and decr
 ![Screenshot n. 1](https://i.postimg.cc/9Mbzqfjj/img1.png)
 ![Screenshot n. 2](https://i.postimg.cc/66HyWT0r/img2.png)
 ![Screenshot n. 3](https://i.postimg.cc/Bbw6Mw6Y/img3.png)
-![Screenshot n. 4](https://i.postimg.cc/Hsdn9XL1/img4.png)
+![Screenshot n. 4](https://i.postimg.cc/LsMbJ9TD/img4.png)
